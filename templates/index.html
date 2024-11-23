@@ -130,7 +130,7 @@
 
     async function testSendtoBackend() {
         try {
-            const response = await fetch("/to_back", {
+            const response = await fetch("/to_back/testingoutput", {
                 method: "POST",
             });
             const result = await response.text();

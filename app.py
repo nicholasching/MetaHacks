@@ -7,10 +7,10 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-@app.route('/to_back', methods=['POST'])
-def to_back():
+@app.route('/to_back/<test>', methods=['POST'])
+def to_back(test):
     print("True")
-    return "Bob"
+    return test
 
 if __name__ == '__main__':
     app.run(debug=True)
