@@ -31,26 +31,26 @@
     <div id="home" data-tab-content class="active" data-tab-name="HOME">
         <h1>Evaluate the integral ∫ (2x + 5) dx...</h1>
     </div>
-    <div id="course1" data-tab-content data-tab-name="MATH115">
+    <div id="course1" data-tab-content data-tab-name="math115">
         <h1>Math 115 Content</h1>
         <div id="response-container">
             <p id="response">Result will be displayed here after recording.</p>
         </div>
         <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
     </div>
-    <div id="course2" data-tab-content data-tab-name="COURSE2">
+    <div id="course2" data-tab-content data-tab-name="course2">
         <h1>Course 2 Content</h1>
         <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
     </div>
-    <div id="course3" data-tab-content data-tab-name="COURSE3">
+    <div id="course3" data-tab-content data-tab-name="course3">
         <h1>Course 3 Content</h1>
         <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
     </div>
-    <div id="course4" data-tab-content data-tab-name="COURSE4">
+    <div id="course4" data-tab-content data-tab-name="course4">
         <h1>Course 4 Content</h1>
         <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
     </div>
-    <div id="course5" data-tab-content data-tab-name="COURSE5">
+    <div id="course5" data-tab-content data-tab-name="course5">
         <h1>Course 5 Content</h1>
         <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
     </div>
@@ -100,7 +100,6 @@
             // Save the file when recording stops
             mediaRecorder.onstop = () => {
                 const blob = new Blob(audioChunks, { type: "audio/wav" });
-
                 /*
                 const url = URL.createObjectURL(blob);
 
@@ -113,7 +112,7 @@
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);*/
-                testSendtoBackend(blob);
+                testSendtoBackend(blob, tabName);
             };
 
             // Start recording
@@ -130,12 +129,12 @@
         });
     });
 
-    async function testSendtoBackend(audioBlob) {
+    async function testSendtoBackend(audioBlob, tabName) {
         const formData = new FormData();
         formData.append('audio', audioBlob, 'recording.wav');
             
         try {
-            const response = await fetch("/to_back/testingoutput", {
+            const response = await fetch("/to_back/".concat(tabName), {
                 method: "POST",
                 body: formData
             });

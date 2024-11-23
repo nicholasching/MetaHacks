@@ -10,19 +10,21 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-@app.route('/to_back/<test>', methods=['POST'])
-def to_back(test):
+@app.route('/to_back/<path>', methods=['POST'])
+def to_back(path):
     # Get the audio file from the request
     audio_file = request.files['audio']
     if audio_file:
         # Save the audio file
-        audio_file.save(f'uploads/recording.wav') 
-    """
-    file = open("text.txt", "w")
-    file.write(at.transcribeAudio("sampleAudio.wav"))
+        if not os.path.exists(f"uploads/{path}"):
+            os.mkdir(f"uploads/{path}")
+        audio_file.save(f"uploads/{path}/recording.wav")
+    
+    file = open(f"uploads/{path}/transcript.txt", "w")
+    file.write(at.transcribeAudio(f"uploads/{path}/recording.wav"))
     file.close()
-    """
-    return sg.generateSummary("text.txt")
+    
+    return sg.generateSummary(f"uploads/{path}/transcript.txt")
 
 @app.route('/to_back/gen_cards', methods=['GET'])
 def generate_cards(path):
