@@ -1,5 +1,4 @@
 body {
-
     margin-top: 2%;
     font-family: "Varela Round", serif;
 }
@@ -7,6 +6,39 @@ body {
 * {
     margin: 0;
     padding: 0;
+}
+
+#headercontainer {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+
+#buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#buttons a {
+    color: black;
+    font-size: 2rem;
+    text-decoration: none;
+}
+
+#mainimg {
+    width: 100%;
+    margin-bottom: 20%;
+}
+
+#maincontainer {
+    background-color: rgb(240, 240, 240);
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 1rem;
+    margin-bottom: 25%;
 }
 
 [data-tab-content] {
@@ -18,26 +50,25 @@ body {
 }
 
 .tabs {
-    display: flex;
     justify-content: space-around;
+    display: flex;
     list-style-type: none;
+    padding-top: 2.5%;
     margin-bottom: 5%;
     margin-left: 0.5%;
     margin-right: 0.5%;
-
-    
 }
 
 .tab {
     padding-top: 1%;
     cursor: pointer;
-    padding-right: 1%;
-    padding-left: 1%;
-    font-size: 2rem;
-    border: solid 1px black;
-    border-bottom: white solid;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
+    padding-right: 3%;
+    padding-left: 3%;
+    font-size: 1.25rem;
+    border: solid 3px rgb(178, 178, 178);
+    border-bottom: none;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
 }
 
 .tab.active {
@@ -51,6 +82,7 @@ body {
 .tab-content {
     margin-left: 2.5%;
     margin-right: 2.5%;
+    padding-bottom: 50%;
 }
 
 .recordButton {
@@ -65,3 +97,5 @@ body {
   .recordButton.recording {
     background-color: rgb(255, 0, 0);
   }
+
+  
