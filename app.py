@@ -12,9 +12,16 @@ def home():
 
 @app.route('/to_back/<test>', methods=['POST'])
 def to_back(test):
+    # Get the audio file from the request
+    audio_file = request.files['audio']
+    if audio_file:
+        # Save the audio file
+        audio_file.save(f'uploads/recording.wav') 
+    """
     file = open("text.txt", "w")
     file.write(at.transcribeAudio("sampleAudio.wav"))
     file.close()
+    """
     return sg.generateSummary("text.txt")
 
 @app.route('/to_back/gen_cards', methods=['GET'])

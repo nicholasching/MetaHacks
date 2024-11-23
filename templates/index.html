@@ -100,6 +100,8 @@
             // Save the file when recording stops
             mediaRecorder.onstop = () => {
                 const blob = new Blob(audioChunks, { type: "audio/wav" });
+
+                /*
                 const url = URL.createObjectURL(blob);
 
                 // Suggest a folder name in the filename
@@ -110,8 +112,8 @@
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-                testSendtoBackend();
+                URL.revokeObjectURL(url);*/
+                testSendtoBackend(blob);
             };
 
             // Start recording
@@ -128,10 +130,14 @@
         });
     });
 
-    async function testSendtoBackend() {
+    async function testSendtoBackend(audioBlob) {
+        const formData = new FormData();
+        formData.append('audio', audioBlob, 'recording.wav');
+            
         try {
             const response = await fetch("/to_back/testingoutput", {
                 method: "POST",
+                body: formData
             });
             const result = await response.text();
 
