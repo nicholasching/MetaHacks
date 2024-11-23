@@ -49,26 +49,26 @@
                 <div id="home" data-tab-content class="active" data-tab-name="HOME">
                     <h1>Study better.</h1>
                 </div>
-                <div id="course1" data-tab-content data-tab-name="MATH 115">
+                <div id="course1" data-tab-content data-tab-name="math115">
                     <h1>Math 115 Content</h1>
                     <div id="response-container">
                         <p id="response">Result will be displayed here after recording.</p>
                     </div>
                     <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                 </div>
-                <div id="course2" data-tab-content data-tab-name="MATH 117">
+                <div id="course2" data-tab-content data-tab-name="math117">
                     <h1>Course 2 Content</h1>
                     <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                 </div>
-                <div id="course3" data-tab-content data-tab-name="ECE 150">
+                <div id="course3" data-tab-content data-tab-name="ece150">
                     <h1>Course 3 Content</h1>
                     <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                 </div>
-                <div id="course4" data-tab-content data-tab-name="ECE 105">
+                <div id="course4" data-tab-content data-tab-name="ece105">
                     <h1>Course 4 Content</h1>
                     <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                 </div>
-                <div id="course5" data-tab-content data-tab-name="ENG 101">
+                <div id="course5" data-tab-content data-tab-name="eng101">
                     <h1>Course 5 Content</h1>
                     <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                 </div>
@@ -210,22 +210,26 @@
     }
 
 
-        async function testSendtoBackend() {
-            try {
-                const response = await fetch("/to_back/testingoutput", {
-                    method: "POST",
-                });
-                const result = await response.text();
+    async function testSendtoBackend(audioBlob, tabName) {
+        const formData = new FormData();
+        formData.append('audio', audioBlob, 'recording.wav');
 
-                // Update the HTML with the result
-                const responseContainer = document.getElementById("response");
-                responseContainer.textContent = `Backend Response: ${result}`;
-            } catch (error) {
-                // Display an error message in the HTML
-                const responseContainer = document.getElementById("response");
-                responseContainer.textContent = `Error: ${error.message}`;
-            }
+        try {
+            const response = await fetch("/to_back/".concat(tabName), {
+                method: "POST",
+                body: formData
+            });
+            const result = await response.text();
+
+            // Update the HTML with the result
+            const responseContainer = document.getElementById("response");
+            responseContainer.textContent = `Backend Response: ${result}`;
+        } catch (error) {
+            // Display an error message in the HTML
+            const responseContainer = document.getElementById("response");
+            responseContainer.textContent = `Error: ${error.message}`;
         }
+    }
 
     </script>
     </body>
