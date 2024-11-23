@@ -5,22 +5,7 @@ from pydub.silence import split_on_silence
 
 class audioTranscriber:
     
-    def transcribeAudio(path):
-
-        # initialize the recognizer
-        r = sr.Recognizer()
-
-        # open the file
-        with sr.AudioFile(path) as source:
-            # listen for the data (load audio to memory)
-            audio_data = r.record(source)
-            # recognize (convert from speech to text)
-            text = r.recognize_google(audio_data)
-            return text
-
-    # a function to recognize speech in the audio file
-    # so that we don't repeat ourselves in in other functions
-    def transcribe_audio(path):
+    def transcribeOneAudio(path):
         # create a speech recognition object
         r = sr.Recognizer()
         # use the audio file as the audio source
@@ -30,7 +15,7 @@ class audioTranscriber:
             text = r.recognize_google(audio_listened)
         return text 
   
-    def get_large_audio_transcription_fixed_interval(path, minutes=3):
+    def transcribeAudio(path, minutes=3):
         """Splitting the large audio file into fixed interval chunks
         and apply speech recognition on each of these chunks"""
         
@@ -52,7 +37,7 @@ class audioTranscriber:
             audio_chunk.export(chunk_filename, format="wav")
             # recognize the chunk
             try:
-                text = audioTranscriber.transcribe_audio(chunk_filename)
+                text = audioTranscriber.transcribeOneAudio(chunk_filename)
             except sr.UnknownValueError as e:
                 print("Error:", str(e))
             else:
