@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Varela+Round&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <title>MetaHacks</title>
+
+    <script src="script.js" defer></script>
+
+</head>
+<body>
+
+<ul class="tabs">
+    <li data-tab-target="#home" class="active tab"><i class="fa-solid fa-house"></i></li>
+    <li data-tab-target="#course1" class="tab">MATH 115</li>
+    <li data-tab-target="#course2" class="tab">MATH 117</li>
+    <li data-tab-target="#course3" class="tab">ECE 150</li>
+    <li data-tab-target="#course4" class="tab">ECE 105</li>
+    <li data-tab-target="#course5" class="tab">ENG 101</li>
+</ul>
+
+<div class="tab-content">
+    <div id="home" data-tab-content class="active" data-tab-name="HOME">
+        <h1>Evaluate the integral ∫ (2x + 5) dx...</h1>
+    </div>
+    <div id="course1" data-tab-content data-tab-name="MATH115">
+        <h1>Math 115 Content</h1>
+        <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
+    </div>
+    <div id="course2" data-tab-content data-tab-name="COURSE2">
+        <h1>Course 2 Content</h1>
+        <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
+    </div>
+    <div id="course3" data-tab-content data-tab-name="COURSE3">
+        <h1>Course 3 Content</h1>
+        <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
+    </div>
+    <div id="course4" data-tab-content data-tab-name="COURSE4">
+        <h1>Course 4 Content</h1>
+        <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
+    </div>
+    <div id="course5" data-tab-content data-tab-name="COURSE5">
+        <h1>Course 5 Content</h1>
+        <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
+    </div>
+</div>
+
+</body>
+</html>
