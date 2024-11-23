@@ -98,8 +98,22 @@
             mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
 
             // Save the file when recording stops
-            mediaRecorder.onstop = () => {
-                const blob = new Blob(audioChunks, { type: "audio/wav" });
+            mediaRecorder.onstop = async () => {
+                const audioBlob = new Blob(audioChunks, { type: "audio/webm; codecs=opus" }); // Ensure proper MIME type
+
+                // Decode the audio to get PCM data
+                const audioContext = new AudioContext();
+                const arrayBuffer = await audioBlob.arrayBuffer();
+                const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+                // Encode the decoded audio as a WAV file
+                const wavData = encodeWAV(audioBuffer);
+
+                // Create a WAV Blob
+                const wavBlob = new Blob([wavData], { type: "audio/wav" });
+
+                // Send the WAV file to the backend or download it
+                testSendtoBackend(wavBlob, tabName);
                 /*
                 const url = URL.createObjectURL(blob);
 
@@ -112,7 +126,7 @@
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);*/
-                testSendtoBackend(blob, tabName);
+                // testSendtoBackend(blob, tabName);
             };
 
             // Start recording
@@ -128,6 +142,51 @@
             }, { once: true });
         });
     });
+
+    // Helper function to encode PCM data to WAV format
+    function encodeWAV(audioBuffer) {
+        const numChannels = audioBuffer.numberOfChannels;
+        const sampleRate = audioBuffer.sampleRate;
+        const numSamples = audioBuffer.length;
+        const buffer = new ArrayBuffer(44 + numSamples * numChannels * 2); // 16-bit PCM
+        const view = new DataView(buffer);
+
+        // Write WAV header
+        writeString(view, 0, "RIFF");
+        view.setUint32(4, 36 + numSamples * numChannels * 2, true); // File size
+        writeString(view, 8, "WAVE");
+        writeString(view, 12, "fmt ");
+        view.setUint32(16, 16, true); // Subchunk1 size
+        view.setUint16(20, 1, true); // Audio format (PCM)
+        view.setUint16(22, numChannels, true); // Number of channels
+        view.setUint32(24, sampleRate, true); // Sample rate
+        view.setUint32(28, sampleRate * numChannels * 2, true); // Byte rate
+        view.setUint16(32, numChannels * 2, true); // Block align
+        view.setUint16(34, 16, true); // Bits per sample
+        writeString(view, 36, "data");
+        view.setUint32(40, numSamples * numChannels * 2, true); // Data chunk size
+
+        // Write interleaved PCM samples
+        let offset = 44;
+        for (let sampleIndex = 0; sampleIndex < numSamples; sampleIndex++) {
+            for (let channel = 0; channel < numChannels; channel++) {
+                const sample = audioBuffer.getChannelData(channel)[sampleIndex];
+                const intSample = Math.max(-1, Math.min(1, sample)) * 0x7FFF; // Scale to 16-bit PCM
+                view.setInt16(offset, intSample, true);
+                offset += 2;
+            }
+        }
+
+        return buffer;
+    }
+
+    // Helper function to write a string into the DataView
+    function writeString(view, offset, string) {
+        for (let i = 0; i < string.length; i++) {
+            view.setUint8(offset + i, string.charCodeAt(i));
+        }
+    }
+
 
     async function testSendtoBackend(audioBlob, tabName) {
         const formData = new FormData();
