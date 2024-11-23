@@ -33,6 +33,9 @@
     </div>
     <div id="course1" data-tab-content data-tab-name="MATH115">
         <h1>Math 115 Content</h1>
+        <div id="response-container">
+            <p id="response">Result will be displayed here after recording.</p>
+        </div>
         <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
     </div>
     <div id="course2" data-tab-content data-tab-name="COURSE2">
@@ -126,13 +129,20 @@
     });
 
     async function testSendtoBackend() {
-        console.log("Testing 1")
-        const response = await fetch("/to_back", {
-            method: "POST"
-        });
-        const promise = response.text()
-        const result = await promise; 
-        console.log(result);
+        try {
+            const response = await fetch("/to_back", {
+                method: "POST",
+            });
+            const result = await response.text();
+
+            // Update the HTML with the result
+            const responseContainer = document.getElementById("response");
+            responseContainer.textContent = `Backend Response: ${result}`;
+        } catch (error) {
+            // Display an error message in the HTML
+            const responseContainer = document.getElementById("response");
+            responseContainer.textContent = `Error: ${error.message}`;
+        }
     }
 
 </script>
