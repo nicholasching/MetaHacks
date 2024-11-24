@@ -1,22 +1,58 @@
 body {
-    margin-top: 2%;
-    font-family: "Varela Round", serif;
+
+    font-family: "Outfit", sans-serif;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow-x: hidden;
+    /* border: black 1px solid; */
+}
+
+#landingPageContainer {
+    margin-bottom: 30%;
+}
+
+#landingPageHeader {
+    letter-spacing: -12.5px;
+    position: absolute;
+    top: 10%;
+    font-size: 10rem;
+    color: white;
+    width: 100%;
+    text-align: center;
+}
+
+.landingImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#personImg {
+    width: 75%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+}
+
+#cloud1Img {
+    transform: translate(300px, 300px);
+}
+
+#cloud2Img {
+    transform: translate(-900px, 300px);
 }
 
 #headercontainer {
-    position: fixed;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40%;
-    background-color: rgb(244, 244, 244);
-    box-shadow: 0px 0px 5px 2px #e0e0e0;
+    top: 3%;
+    padding-left: 40%;
+    padding-right: 40%;
+    width: 100%;
+    position: absolute;
+    background-color: transparent;
     border-radius: 1rem;
 }
 
@@ -30,7 +66,7 @@ body {
 }
 
 #buttons a {
-    color: black;
+    color: white;
     font-size: 1.5rem;
     text-decoration: none;
     padding: 1%;
@@ -41,7 +77,7 @@ body {
 }
 
 #buttons a:hover {
-    background-color: #CCC;
+    opacity: 0.5;
 }
 
 #mainimg {
@@ -50,10 +86,13 @@ body {
 }
 
 #maincontainer {
-    background-color: rgb(240, 240, 240);
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-top: 1%;
+    box-shadow: 0px 0px 10px 5px #e6e6e6;
+    margin-left: 15%;
+    margin-right: 15%;
     border-radius: 1rem;
+    margin-bottom: 10%;
+    padding: 5%;
 }
 
 .container {
@@ -85,34 +124,52 @@ body {
     display: block;
 }
 
+#course1, #course2, #course3, #course4, #course5 {
+    background-color: #f4f4f4;
+    border-radius: 1rem;
+    padding: 3%;
+    position: relative;
+}
+
+#home {
+    padding: 3%;
+    border-radius: 1rem;
+    background-color: #f4f4f4;
+}
+
+#hometext {
+    font-weight: normal;
+}
+
 .tabs {
-    justify-content: space-around;
+    justify-content: center;
     display: flex;
     list-style-type: none;
-    padding-top: 2.5%;
-    margin-bottom: 5%;
+    margin-top: 1%;
     margin-left: 0.5%;
     margin-right: 0.5%;
 }
 
 .tab {
+    font-weight: 600;
     padding-top: 1%;
     cursor: pointer;
     padding-right: 3%;
     padding-left: 3%;
     font-size: 1.25rem;
-    border: solid 3px rgb(178, 178, 178);
     border-bottom: none;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
+    transition: 0.3s;
+    padding-bottom: 0.5%;
 }
 
 .tab.active {
-    background-color: #CCC;
+    background-color: #f4f4f4;
 }
 
 .tab:hover {
-    background-color: #AAA;
+    background-color: #cacaca;
 }
 
 .tab-content {
@@ -122,50 +179,52 @@ body {
     margin-bottom: 20%;
 }
 
+.textcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .recordButton {
     padding: 10px 20px;
+    padding-top: 30px;
     font-size: 5rem;
     cursor: pointer;
-    background-color: rgb(8, 71, 0);
+    background-color: rgb(143, 218, 124);
     color: white;
     border: none;
     border-radius: 1rem;
   }
   .recordButton.recording {
-    background-color: rgb(255, 0, 0);
+    background-color: rgb(255, 125, 125);
   }
 
-  .flashcardcontainer {
-    border-radius: 1rem;
-    background-color: rgb(240, 240, 240);
-    margin-left: 5%;
-    margin-right: 5%;
-    padding-top: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .flashcard {
+    position: absolute;
+    width: 100%;
+    transform-style: preserve-3d;
+    transition: all 0.5s;
+    background-color: blue;
+    height: 100%;
   }
 
-.flashcard {
-    background-color: rgb(200, 200, 200);
-    width: 75%;
-    padding-top: 10%;
-    padding-bottom: 15%;
-    border-radius: 1rem;
-    text-align: center;
-}
+  .frontcard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
 
-#course1q {
-    position: relative;
-    height: 30%;
-    width: 50%; 
-}
+  .backcard {
+    position: absolute;
+    width: 100%;
+    transform: rotateY(180deg);
+    height: 100%;
+  }
 
-#course1a {
-    position:absolute;
-    height: 30%;
-    visibility: hidden;
-}
+  .flashcard:hover {
+    transform: rotateY(180deg);
+  }
+
 
 
   

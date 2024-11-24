@@ -9,7 +9,7 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Varela+Round&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=League+Spartan:wght@100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -31,9 +31,15 @@
             </a>
         </section>
     </div>
-    <section id="section-one">
-        <img src="static/images/main.png" id="mainimg">
-    </section>
+    
+    <div id="landingPageContainer">
+        <h1 id="landingPageHeader">Nimbus Notes</h1>
+        <img src="static/images/person.png" id="personImg" class="landingImg">
+        <img src="static/images/background.png" id="backgroundImg">
+        <img src="static/images/cloud1.png" id="cloud1Img" class="landingImg">
+        <img src="static/images/cloud2.png" id="cloud2Img" class="landingImg">
+    </div>
+
     <section id="section-two">
         <div id="maincontainer">
             <ul class="tabs">
@@ -45,99 +51,61 @@
                 <li data-tab-target="#course5" class="tab">ENG 101</li>
             </ul>
         
-            <div class="tab-content">
-                <div id="home" data-tab-content class="active" data-tab-name="HOME">
-                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident sed velit temporibus sint quis, dolorum alias, atque necessitatibus culpa veritatis esse rerum nobis ullam libero recusandae? Ducimus eaque fugiat aliquid. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur beatae dolor doloremque repellendus reprehenderit illo impedit corporis id numquam fugit provident fugiat doloribus tenetur itaque architecto assumenda, possimus placeat consequuntur?</h1>
-                </div>
-                <div id="course1" data-tab-content data-tab-name="math115">
-                    <div class="container">
-                        <div class="textcontainer">
-                            <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
-                        </div>
-                        <div class="generatecontainer">
-                            <h1 id="result-textmath115" class="generatetext"></h1>
-                        </div>
+
+            <div id="home" data-tab-content class="active" data-tab-name="HOME">
+                <h2 id="hometext">Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident sed velit temporibus sint quis, dolorum alias, atque necessitatibus culpa veritatis esse rerum nobis ullam libero recusandae? Ducimus eaque fugiat aliquid. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur beatae dolor doloremque repellendus reprehenderit illo impedit corporis id numquam fugit provident fugiat doloribus tenetur itaque architecto assumenda, possimus placeat consequuntur?</h2>
+            </div>
+            <div id="course1" data-tab-content data-tab-name="math115">
+                <div class="container">
+                    <div class="textcontainer">
+                        <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                     </div>
-                    <div class="flashcardcontainer">
-                        <div id="course1q"class="flashcard">
-                            <h1 id="flashcard-qtextmath115" class="flashcardtext">Question</h1>
-                        </div>
-                        <div id="course1a"class="flashcard">
-                            <h1 id="flashcard-atextmath115" class="flashcardtext">Answer</h1>
-                        </div>
+                    <div class="generatecontainer">
+                        <h1 id="result-textmath115" class="generatetext"></h1>
                     </div>
                 </div>
+                <div class="flashcard">
+                    <div class="frontcard">Hello</div>
+                    <div class="backcard">Hello</div>
                 </div>
-                <div id="course2" data-tab-content data-tab-name="math117">
-                    <div class="container">
-                        <div class="textcontainer">
-                            <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
-                        </div>
-                        <div class="generatecontainer">
-                            <h1 id="result-textmath117" class="generatetext"></h1>
-                        </div>
+            </div>
+            <div id="course2" data-tab-content data-tab-name="math117">
+                <div class="container">
+                    <div class="textcontainer">
+                        <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                     </div>
-                    <div class="flashcardcontainer">
-                        <div id="course2q"class="flashcard">
-                            <h1 id="flashcard-qtextmath117" class="flashcardtext"></h1>
-                        </div>
-                        <div id="course2a"class="flashcard">
-                            <h1 id="flashcard-atextmath117" class="flashcardtext"></h1>
-                        </div>
+                    <div class="generatecontainer">
+                        <h1 id="result-textmath117" class="generatetext"></h1>
                     </div>
                 </div>
-                <div id="course3" data-tab-content data-tab-name="ece150">
-                    <div class="container">
-                        <div class="textcontainer">
-                            <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
-                        </div>
-                        <div class="generatecontainer">
-                            <h1 id="result-textece150" class="generatetext"></h1>
-                        </div>
+            </div>
+            <div id="course3" data-tab-content data-tab-name="ece150">
+                <div class="container">
+                    <div class="textcontainer">
+                        <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                     </div>
-                    <div class="flashcardcontainer">
-                        <div id="course3q"class="flashcard">
-                            <h1 id="flashcard-qtextece150" class="flashcardtext"></h1>
-                        </div>
-                        <div id="course3a"class="flashcard">
-                            <h1 id="flashcard-atextece150" class="flashcardtext"></h1>
-                        </div>
+                    <div class="generatecontainer">
+                        <h1 id="result-textece150" class="generatetext"></h1>
                     </div>
                 </div>
-                <div id="course4" data-tab-content data-tab-name="ece105">
-                    <div class="container">
-                        <div class="textcontainer">
-                            <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
-                        </div>
-                        <div class="generatecontainer">
-                            <h1 id="result-textece105" class="generatetext"></h1>
-                        </div>
+            </div>
+            <div id="course4" data-tab-content data-tab-name="ece105">
+                <div class="container">
+                    <div class="textcontainer">
+                        <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                     </div>
-                    <div class="flashcardcontainer">
-                        <div id="course4q"class="flashcard">
-                            <h1 id="flashcard-qtextece105" class="flashcardtext"></h1>
-                        </div>
-                        <div id="course4a"class="flashcard">
-                            <h1 id="flashcard-atextece105" class="flashcardtext"></h1>
-                        </div>
+                    <div class="generatecontainer">
+                        <h1 id="result-textece105" class="generatetext"></h1>
                     </div>
                 </div>
-                <div id="course5" data-tab-content data-tab-name="eng101">
-                    <div class="container">
-                        <div class="textcontainer">
-                            <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
-                        </div>
-                        <div class="generatecontainer">
-                            <h1 id="result-texteng101" class="generatetext"></h1>
-                        </div>
+            </div>
+            <div id="course5" data-tab-content data-tab-name="eng101">
+                <div class="container">
+                    <div class="textcontainer">
+                        <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                     </div>
-                    <div class="flashcardcontainer">
-                        <div id="course5q"class="flashcard">
-                            <h1 id="flashcard-qtexteng101" class="flashcardtext"></h1>
-                        </div>
-                        <div id="course5a"class="flashcard">
-                            <h1 id="flashcard-atexteng101" class="flashcardtext"></h1>
-                        </div>
+                    <div class="generatecontainer">
+                        <h1 id="result-texteng101" class="generatetext"></h1>
                     </div>
                 </div>
             </div>
@@ -435,6 +403,18 @@
           }
       } 
     }
+
+    const cloud1 = document.getElementById('cloud1Img');
+    const cloud2 = document.getElementById('cloud2Img');
+    
+    const landingHeader = document.getElementById('landingPageHeader');
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY;
+        cloud1.style.transform = `translate(${300 + scrollPosition * 0.4}px, ${300 + scrollPosition * 0.1}px)`;
+        cloud2.style.transform = `translate(${-900 + scrollPosition * -0.4}px, ${300 + scrollPosition * 0.1}px)`;
+        landingHeader.style.transform = `translate(0, ${scrollPosition * 0.3}%)`;
+    });
+
     </script>
     </body>
     </html>
