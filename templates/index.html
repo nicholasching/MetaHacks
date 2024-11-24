@@ -24,10 +24,10 @@
                 <i class="fa-solid fa-house"></i>
             </a>
             <a href="#section-two">
-                Test
+                <i class="fa-solid fa-book"></i>
             </a>
             <a href="#">
-                Information
+                <i class="fa-solid fa-info"></i>
             </a>
         </section>
     </div>
@@ -47,30 +47,53 @@
         
             <div class="tab-content">
                 <div id="home" data-tab-content class="active" data-tab-name="HOME">
-                    <h1>Study better.</h1>
+                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident sed velit temporibus sint quis, dolorum alias, atque necessitatibus culpa veritatis esse rerum nobis ullam libero recusandae? Ducimus eaque fugiat aliquid. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur beatae dolor doloremque repellendus reprehenderit illo impedit corporis id numquam fugit provident fugiat doloribus tenetur itaque architecto assumenda, possimus placeat consequuntur?</h1>
                 </div>
                 <div id="course1" data-tab-content data-tab-name="math115">
-                    <h1>Math 115 Content</h1>
-                    <div id="response-container">
-                        <p id="response">Result will be displayed here after recording.</p>
+                <div class="container">
+                    <div class="textcontainer">
+                        <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                     </div>
-                    <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
+                    <div class="generatecontainer">
+                        <h1 id="result-text" class="generatetext"></h1>
+                    </div>
+                </div>
                 </div>
                 <div id="course2" data-tab-content data-tab-name="math117">
-                    <h1>Course 2 Content</h1>
-                    <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
+                    <div class="container">
+                        <div class="textcontainer">
+                            <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
+                        </div>
+                        <div class="generatecontainer">
+                        </div>
+                    </div>
                 </div>
                 <div id="course3" data-tab-content data-tab-name="ece150">
-                    <h1>Course 3 Content</h1>
-                    <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
+                    <div class="container">
+                        <div class="textcontainer">
+                            <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
+                        </div>
+                        <div class="generatecontainer">
+                        </div>
+                    </div>
                 </div>
                 <div id="course4" data-tab-content data-tab-name="ece105">
-                    <h1>Course 4 Content</h1>
-                    <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
+                    <div class="container">
+                        <div class="textcontainer">
+                            <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
+                        </div>
+                        <div class="generatecontainer">
+                        </div>
+                    </div>
                 </div>
                 <div id="course5" data-tab-content data-tab-name="eng101">
-                    <h1>Course 5 Content</h1>
-                    <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
+                    <div class="container">
+                        <div class="textcontainer">
+                            <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
+                        </div>
+                        <div class="generatecontainer">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -209,28 +232,49 @@
         }
     }
 
-
     async function testSendtoBackend(audioBlob, tabName) {
-        const formData = new FormData();
-        formData.append('audio', audioBlob, 'recording.wav');
+    const formData = new FormData();
+    formData.append('audio', audioBlob, 'recording.wav');
 
-        try {
-            const response = await fetch("/to_back/".concat(tabName), {
-                method: "POST",
-                body: formData
+    try {
+        const response = await fetch("/to_back/".concat(tabName), {
+            method: "POST",
+            body: formData
+        });
+        const result = await response.text();
+
+        const resultTextElement = document.getElementById("result-text");
+
+        if (resultTextElement) {
+            // Split the text into lines based on newlines
+            const lines = result.split('\n');
+            resultTextElement.innerHTML = ''; // Clear any existing content
+
+            // Create a container for the lines
+            const container = document.createElement('div');
+            resultTextElement.appendChild(container);
+
+            lines.forEach((line, index) => {
+                // Create a span for each line
+                const lineSpan = document.createElement('span');
+                lineSpan.classList.add('line');
+                lineSpan.textContent = line;
+
+                // Apply the typing animation to each line with delay
+                lineSpan.style.animationDelay = `${index * 2}s`; // Adjust the delay as needed
+
+                // Append the line span to the container
+                container.appendChild(lineSpan);
             });
-            const result = await response.text();
-
-            // Update the HTML with the result
-            const responseContainer = document.getElementById("response");
-            responseContainer.textContent = `Backend Response: ${result}`;
-        } catch (error) {
-            // Display an error message in the HTML
-            const responseContainer = document.getElementById("response");
-            responseContainer.textContent = `Error: ${error.message}`;
+        }
+    } catch (error) {
+        // Handle errors gracefully
+        const resultTextElement = document.getElementById("result-text");
+        if (resultTextElement) {
+            resultTextElement.textContent = `Error: ${error.message}`;
         }
     }
-
+}
     </script>
     </body>
     </html>

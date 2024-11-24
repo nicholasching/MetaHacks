@@ -6,26 +6,42 @@ body {
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 #headercontainer {
     position: fixed;
-    top: 0;
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
+    width: 40%;
+    background-color: rgb(244, 244, 244);
+    box-shadow: 0px 0px 5px 2px #e0e0e0;
+    border-radius: 1rem;
+}
+
+#section-one {
+    padding-top: 5%;
 }
 
 #buttons {
     display: flex;
     align-items: center;
-    justify-content: space-around;
 }
 
 #buttons a {
     color: black;
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-decoration: none;
+    padding: 1%;
+    transition: 0.3s;
+    border-radius: 1rem;
+    width: 33.33333%;
+    text-align: center;
+}
+
+#buttons a:hover {
+    background-color: #CCC;
 }
 
 #mainimg {
@@ -38,8 +54,59 @@ body {
     margin-left: 5%;
     margin-right: 5%;
     border-radius: 1rem;
-    margin-bottom: 25%;
 }
+
+.container {
+    display: flex;
+}
+
+.textcontainer {
+    width: 30%;
+    padding: 5%;
+    padding-left: 7.5%;
+    justify-content: center;
+    align-items: center;
+}
+
+.generatecontainer {
+    display: inline-block;
+    width: 70%;
+    padding: 10%;
+    background-color: #CCC;
+    border-radius: 1rem;
+}
+
+.generatetext {
+    display: block; /* Ensure it's block level for each line */
+    white-space: normal; /* Allow wrapping */
+    overflow: hidden; /* Hide overflow */
+    line-height: 1.5; /* Ensure proper line spacing */
+}
+
+.line {
+    display: inline-block;
+    width: 0; /* Start with 0 width */
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 5px solid black; /* Cursor effect */
+    animation: typing 2s steps(30) 1 forwards, cursor 0.75s step-end infinite alternate;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;  /* Animate to full width */
+    }
+}
+
+@keyframes cursor {
+    50% {
+        border-color: transparent;
+    }
+}
+
 
 [data-tab-content] {
     display: none;
@@ -82,17 +149,18 @@ body {
 .tab-content {
     margin-left: 2.5%;
     margin-right: 2.5%;
-    padding-bottom: 50%;
+    padding-bottom: 10%;
+    margin-bottom: 20%;
 }
 
 .recordButton {
     padding: 10px 20px;
-    font-size: 18px;
+    font-size: 5rem;
     cursor: pointer;
-    background-color: rgb(0, 255, 98);
+    background-color: rgb(8, 71, 0);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 1rem;
   }
   .recordButton.recording {
     background-color: rgb(255, 0, 0);
