@@ -374,6 +374,7 @@
       } 
     }
     async function getCards(tabName) {
+      // THE REASON THIS ERRORS IS BECAUSE THE FLASHCARD DIVS HAVE BEEN CHANGED
       try {
           const response = await fetch("/get_cards/".concat(tabName), {
               method: "POST",
@@ -396,11 +397,7 @@
 
           
       } catch (error) {
-          // Handle errors gracefully
-          const resultTextElement = document.getElementById("result-text".concat(tabName));
-          if (resultTextElement) {
-              resultTextElement.textContent = `Error: ${error.message}`;
-          }
+          console.log(`Error: ${error.message}`)
       } 
     }
 
