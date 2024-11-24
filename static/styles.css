@@ -91,8 +91,32 @@ body {
     margin-left: 15%;
     margin-right: 15%;
     border-radius: 1rem;
-    margin-bottom: 10%;
+    margin-bottom: 25%;
     padding: 5%;
+}
+
+@keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    25% {
+      background-position: 100% 50%;
+    }
+    50% {
+      background-position: 0% 50%;
+    }
+    75% {
+      background-position: -100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+#mainheading {
+    color: #000000;
+    width: 100%;
+    text-align: center;
 }
 
 .container {
@@ -115,6 +139,13 @@ body {
     border-radius: 1rem;
 }
 
+.gradienttext {
+    background: linear-gradient(90deg, #1530ff, #0dbeff, #01ffff, #1058ff, #4a2aff);
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 18s infinite linear;
+}
 
 [data-tab-content] {
     display: none;
@@ -216,4 +247,23 @@ body {
     position: absolute;
     bottom: 0;
     left: 43%;
+}
+
+#informationcontainer {
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 30%;
+}
+
+#informationheader {
+    width: 100%;
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 5%;
+}
+
+#informationparagraph {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
 }
