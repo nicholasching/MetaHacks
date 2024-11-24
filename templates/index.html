@@ -362,12 +362,12 @@
           if (result != "false") {
               const obj = JSON.parse(result);
               console.log("Flashcards generated for " + tabName);
-              const questionText = document.getElementById('result-text'.concat(tabName));
+              const questionText = document.getElementById('card-text'.concat(tabName));
               //const ansText = document.getElementById('flashcard-atext'.concat(tabName));
               questionText.textContent = obj["card1"]["q"];
               //ansText.textContent = obj["card1"]["a"];
           } else {
-              const questionText = document.getElementById('result-text'.concat(tabName));
+              const questionText = document.getElementById('card-text'.concat(tabName));
               //const ansText = document.getElementById('flashcard-atext'.concat(tabName));
               questionText.textContent = "No info";
               //ansText.textContent = "No info";
@@ -376,7 +376,7 @@
           
       } catch (error) {
           // Handle errors gracefully
-          const resultTextElement = document.getElementById("result-text".concat(tabName));
+          const resultTextElement = document.getElementById("card-text".concat(tabName));
           if (resultTextElement) {
               resultTextElement.textContent = `Error: ${error.message}`;
           }
@@ -392,12 +392,12 @@
           if (result != "false") {
               const obj = JSON.parse(result);
               console.log("Flashcards generated for " + tabName);
-              const questionText = document.getElementById('result-text'.concat(tabName));
+              const questionText = document.getElementById('card-text'.concat(tabName));
               //const ansText = document.getElementById('flashcard-atext'.concat(tabName));
               questionText.textContent = obj["card1"]["q"];
               ansText.textContent = obj["card1"]["a"];
           } else {
-              const questionText = document.getElementById('result-text'.concat(tabName));
+              const questionText = document.getElementById('card-text'.concat(tabName));
               //const ansText = document.getElementById('flashcard-atext'.concat(tabName));
               questionText.textContent = "No info";
               //ansText.textContent = "No info";
