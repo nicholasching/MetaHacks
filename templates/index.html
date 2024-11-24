@@ -64,9 +64,9 @@
                         <h1 id="result-textmath115" class="generatetext"></h1>
                     </div>
                 </div>
-                <div class="flashcard">
-                    <div class="frontcard">Hello</div>
-                    <div class="backcard">Hello</div>
+                <div class="flashcardcontainer">
+                    <h1 id="card-textmath115">Math115flashcard</h1>
+                    <button class="regenbutton" id="regen-textmath115">Regenerate <i class="fa-solid fa-rotate-right"></i></button>
                 </div>
             </div>
             <div id="course2" data-tab-content data-tab-name="math117">
@@ -411,6 +411,13 @@
         cloud2.style.transform = `translate(${-900 + scrollPosition * -0.4}px, ${300 + scrollPosition * 0.1}px)`;
         landingHeader.style.transform = `translate(0, ${scrollPosition * 0.3}%)`;
     });
+
+    document.querySelectorAll('.flashcard').forEach(card => {
+    card.addEventListener('click', () => {
+        // Toggle a "flipped" class on the card when clicked
+        card.classList.toggle('flipped');
+    });
+});
 
     </script>
     </body>
