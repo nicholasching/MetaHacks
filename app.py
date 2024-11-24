@@ -19,7 +19,7 @@ def to_back(path):
         # Save the audio file
         if not os.path.exists(f"uploads/{path}"):
             os.mkdir(f"uploads/{path}")
-        audio_file.save(f"uploads/{path}/recording.wav")
+        audio_file.save(f"uploads/{path}/recording.wav") 
     
     file = open(f"uploads/{path}/transcript.txt", "w")
     file.write(at.transcribeAudio(f"uploads/{path}/recording.wav"))
