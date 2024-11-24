@@ -3,6 +3,7 @@ import os
 from audioTranscriber import audioTranscriber as at
 from summaryGenerator import summaryGenerator as sg
 from flashcardGenerator import flashcardGenerator as fg
+import json
 
 app = Flask(__name__)
 
@@ -26,13 +27,26 @@ def to_back(path):
     
     return sg.generateSummary(f"uploads/{path}/transcript.txt")
 
-@app.route('/to_back/gen_cards', methods=['GET'])
-def generate_cards(path):
-    with open("text.txt", "r") as file:
-        line = file.readline() 
-        fg.generateCards(line)
-        return fg.getCards()
+@app.route('/gen_cards/<path>', methods=['POST'])
+def gen_cards(path):
+    if not os.path.exists(f"uploads/{path}"):
+        os.mkdir(f"uploads/{path}")
+    with open("flashcards.JSON", "w") as jsonFile:
+        with open("transcript.txt", "r") as file:
+            line = file.readline()
+            fg.generateCards(line)
+            json.dump(fg.getCards(), jsonFile)
+            print(type(fg.getCards))
+    return fg.getCards()
         
+@app.route('/get_cards/<path>', methods=['POST'])
+def get_cards(path):
+    jsonString = None
+    if os.path.exists(f"uploads/{path}/flashcards.JSON"):
+        with open("flashcards.JSON", "r") as jsonFile:
+            jsonString = json.load(jsonFile)
+        return json.dumps(jsonString)
+    else: return False 
 
 if __name__ == '__main__':
     app.run(debug=True)
