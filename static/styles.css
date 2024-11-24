@@ -71,7 +71,7 @@ body {
 .generatecontainer {
     display: inline-block;
     width: 70%;
-    padding: 10%;
+    padding: 3%;
     background-color: #CCC;
     border-radius: 1rem;
 }
@@ -134,5 +134,27 @@ body {
   .recordButton.recording {
     background-color: rgb(255, 0, 0);
   }
+
+  .flashcardcontainer {
+    border-radius: 1rem;
+    background-color: rgb(240, 240, 240);
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 10%;
+    padding: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.flashcard {
+    background-color: rgb(200, 200, 200);
+    width: 75%;
+    padding-top: 10%;
+    padding-bottom: 15%;
+    border-radius: 1rem;
+    text-align: center;
+}
+
 
   
