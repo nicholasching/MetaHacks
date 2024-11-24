@@ -64,10 +64,10 @@
                         <h1 id="result-textmath115" class="generatetext"></h1>
                     </div>
                 </div>
-                <div class="flashcardcontainer">
+                <div onclick="swapCards()" class="flashcardcontainer">
                     <h1 id="card-textmath115">Math115flashcard</h1>
-                    <button class="regenbutton" id="regen-textmath115">Regenerate <i class="fa-solid fa-rotate-right"></i></button>
                 </div>
+                <button class="regenbutton" id="regen-textmath115">Regenerate <i class="fa-solid fa-rotate-right"></i></button>
             </div>
             <div id="course2" data-tab-content data-tab-name="math117">
                 <div class="container">
@@ -117,6 +117,7 @@
     <script>
         const tabs = document.querySelectorAll("[data-tab-target]")
         const tabContents = document.querySelectorAll("[data-tab-content]")
+        let page = 0
 
         tabs.forEach(tab => {
             tab.addEventListener("click", () => {
@@ -142,6 +143,16 @@
                 generateCards(tabName)
             })
         })
+
+        async function swapCards(){
+            getCards("math115", page)
+            if(page == 0){
+                page = 1
+            }
+            else{
+                page = 0
+            }
+        }
 
         document.querySelectorAll(".recordButton").forEach(button => {
             let mediaRecorder;
@@ -382,7 +393,7 @@
           }
       } 
     }
-    async function getCards(tabName) {
+    async function getCards(tabName, side) {
       // THE REASON THIS ERRORS IS BECAUSE THE FLASHCARD DIVS HAVE BEEN CHANGED
       try {
           const response = await fetch("/get_cards/".concat(tabName), {
@@ -392,15 +403,17 @@
           if (result != "false") {
               const obj = JSON.parse(result);
               console.log("Flashcards generated for " + tabName);
-              const questionText = document.getElementById('card-text'.concat(tabName));
-              //const ansText = document.getElementById('flashcard-atext'.concat(tabName));
-              questionText.textContent = obj["card1"]["q"];
-              ansText.textContent = obj["card1"]["a"];
+              if (side == 0){
+                const questionText = document.getElementById('card-text'.concat(tabName));
+                questionText.textContent = obj["card1"]["q"];
+              }
+              else{
+                const ansText = document.getElementById('card-text'.concat(tabName));
+                ansText.textContent = obj["card1"]["a"];
+              }
           } else {
               const questionText = document.getElementById('card-text'.concat(tabName));
-              //const ansText = document.getElementById('flashcard-atext'.concat(tabName));
               questionText.textContent = "No info";
-              //ansText.textContent = "No info";
               console.log("No flashcards found for " + tabName);
           }
 
