@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="line"></div>
-                <div onclick="swapCards()" class="flashcardcontainer">
+                <div onclick="swapCards115()" class="flashcardcontainer">
                     <h1 id="card-textmath115">Math115flashcard</h1>
                 </div>
                 <button class="regenbutton" id="regen-textmath115"><i class="fa-solid fa-rotate-right"></i></button>
@@ -82,6 +82,11 @@
                         <h1 id="result-textmath117" class="generatetext"></h1>
                     </div>
                 </div>
+                <div class="line"></div>
+                <div onclick="swapCards117()" class="flashcardcontainer">
+                    <h1 id="card-textmath117">Math117flashcard</h1>
+                </div>
+                <button class="regenbutton" id="regen-textmath117"><i class="fa-solid fa-rotate-right"></i></button>
             </div>
             <div id="course3" data-tab-content data-tab-name="ece150">
                 <div class="container">
@@ -92,6 +97,11 @@
                         <h1 id="result-textece150" class="generatetext"></h1>
                     </div>
                 </div>
+                <div class="line"></div>
+                <div onclick="swapCards150()" class="flashcardcontainer">
+                    <h1 id="card-textece150">Math115flashcard</h1>
+                </div>
+                <button class="regenbutton" id="regen-textece150"><i class="fa-solid fa-rotate-right"></i></button>
             </div>
             <div id="course4" data-tab-content data-tab-name="ece105">
                 <div class="container">
@@ -102,6 +112,11 @@
                         <h1 id="result-textece105" class="generatetext"></h1>
                     </div>
                 </div>
+                <div class="line"></div>
+                <div onclick="swapCards105()" class="flashcardcontainer">
+                    <h1 id="card-textece105">Math115flashcard</h1>
+                </div>
+                <button class="regenbutton" id="regen-textece105"><i class="fa-solid fa-rotate-right"></i></button>
             </div>
             <div id="course5" data-tab-content data-tab-name="eng101">
                 <div class="container">
@@ -112,6 +127,11 @@
                         <h1 id="result-texteng101" class="generatetext"></h1>
                     </div>
                 </div>
+                <div class="line"></div>
+                <div onclick="swapCards101()" class="flashcardcontainer">
+                    <h1 id="card-texteng101">Math115flashcard</h1>
+                </div>
+                <button class="regenbutton" id="regen-texteng101"><i class="fa-solid fa-rotate-right"></i></button>
             </div>
         </div>
     </section>
@@ -128,7 +148,11 @@
     <script>
         const tabs = document.querySelectorAll("[data-tab-target]")
         const tabContents = document.querySelectorAll("[data-tab-content]")
-        let page = 0
+        let page115 = 0
+        let page117 = 0
+        let page105 = 0
+        let page150 = 0
+        let page101 = 0
 
         tabs.forEach(tab => {
             tab.addEventListener("click", () => {
@@ -155,13 +179,49 @@
             })
         })
 
-        async function swapCards(){
-            getCards("math115", page)
-            if(page == 0){
-                page = 1
+        async function swapCards115(){
+            getCards("math115", page115)
+            if(page115 == 0){
+                page115 = 1
             }
             else{
-                page = 0
+                page115 = 0
+            }
+        }
+        async function swapCards117(){
+            getCards("math117", page117)
+            if(page117 == 0){
+                page117 = 1
+            }
+            else{
+                page117 = 0
+            }
+        }
+        async function swapCards150(){
+            getCards("ece150", page150)
+            if(page150 == 0){
+                page150 = 1
+            }
+            else{
+                page150 = 0
+            }
+        }
+        async function swapCards105(){
+            getCards("ece105", page105)
+            if(page105 == 0){
+                page105 = 1
+            }
+            else{
+                page105 = 0
+            }
+        }
+        async function swapCards101(){
+            getCards("eng101", page101)
+            if(page101 == 0){
+                page101 = 1
+            }
+            else{
+                page101 = 0
             }
         }
 
@@ -414,7 +474,7 @@
           if (result != "false") {
               const obj = JSON.parse(result);
               console.log("Flashcards generated for " + tabName);
-              if (side == 0){
+              if (side == 1){
                 const questionText = document.getElementById('card-text'.concat(tabName));
                 questionText.textContent = obj["card1"]["q"];
               }
