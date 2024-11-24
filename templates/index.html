@@ -134,6 +134,15 @@
             })
         })
 
+        document.querySelectorAll(".regenbutton").forEach(button => {
+            button.addEventListener("click", async() => {
+                const parentTab = button.closest("[data-tab-content]");
+                const tabName = parentTab ? parentTab.getAttribute("data-tab-name") || "Recording" : "Recording";
+                
+                generateCards(tabName)
+            })
+        })
+
         document.querySelectorAll(".recordButton").forEach(button => {
             let mediaRecorder;
             let stream;
@@ -353,15 +362,15 @@
           if (result != "false") {
               const obj = JSON.parse(result);
               console.log("Flashcards generated for " + tabName);
-              const questionText = document.getElementById('flashcard-qtext'.concat(tabName));
-              const ansText = document.getElementById('flashcard-atext'.concat(tabName));
+              const questionText = document.getElementById('result-text'.concat(tabName));
+              //const ansText = document.getElementById('flashcard-atext'.concat(tabName));
               questionText.textContent = obj["card1"]["q"];
-              ansText.textContent = obj["card1"]["a"];
+              //ansText.textContent = obj["card1"]["a"];
           } else {
-              const questionText = document.getElementById('flashcard-qtext'.concat(tabName));
-              const ansText = document.getElementById('flashcard-atext'.concat(tabName));
+              const questionText = document.getElementById('result-text'.concat(tabName));
+              //const ansText = document.getElementById('flashcard-atext'.concat(tabName));
               questionText.textContent = "No info";
-              ansText.textContent = "No info";
+              //ansText.textContent = "No info";
               console.log("No flashcards found for " + tabName);
           }
           
@@ -383,15 +392,15 @@
           if (result != "false") {
               const obj = JSON.parse(result);
               console.log("Flashcards generated for " + tabName);
-              const questionText = document.getElementById('flashcard-qtext'.concat(tabName));
-              const ansText = document.getElementById('flashcard-atext'.concat(tabName));
+              const questionText = document.getElementById('result-text'.concat(tabName));
+              //const ansText = document.getElementById('flashcard-atext'.concat(tabName));
               questionText.textContent = obj["card1"]["q"];
               ansText.textContent = obj["card1"]["a"];
           } else {
-              const questionText = document.getElementById('flashcard-qtext'.concat(tabName));
-              const ansText = document.getElementById('flashcard-atext'.concat(tabName));
+              const questionText = document.getElementById('result-text'.concat(tabName));
+              //const ansText = document.getElementById('flashcard-atext'.concat(tabName));
               questionText.textContent = "No info";
-              ansText.textContent = "No info";
+              //ansText.textContent = "No info";
               console.log("No flashcards found for " + tabName);
           }
 
