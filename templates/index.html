@@ -55,7 +55,7 @@
                         <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                     </div>
                     <div class="generatecontainer">
-                        <h1 id="result-text" class="generatetext"></h1>
+                        <h1 id="result-textmath115" class="generatetext"></h1>
                     </div>
                 </div>
                 </div>
@@ -65,7 +65,7 @@
                             <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                         </div>
                         <div class="generatecontainer">
-                            <h1 id="result-text" class="generatetext"></h1>
+                            <h1 id="result-textmath117" class="generatetext"></h1>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                             <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                         </div>
                         <div class="generatecontainer">
-                            <h1 id="result-text" class="generatetext"></h1>
+                            <h1 id="result-textece150" class="generatetext"></h1>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                             <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                         </div>
                         <div class="generatecontainer">
-                            <h1 id="result-text" class="generatetext"></h1>
+                            <h1 id="result-textece105" class="generatetext"></h1>
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                             <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
                         </div>
                         <div class="generatecontainer">
-                            <h1 id="result-text" class="generatetext"></h1>
+                            <h1 id="result-texteng101" class="generatetext"></h1>
                         </div>
                     </div>
                 </div>
@@ -246,9 +246,9 @@
                 method: "POST",
                 body: formData
             });
-            const result = await response.text();
+            let result = await response.text();
 
-            const animatedText = document.getElementById('result-text');
+            const animatedText = document.getElementById('result-text'.concat(tabName));
 
             let index = 0;
             animatedText.textContent = ""; // Clear previous text
@@ -267,7 +267,7 @@
             
         } catch (error) {
             // Handle errors gracefully
-            const resultTextElement = document.getElementById("result-text");
+            const resultTextElement = document.getElementById("result-text".concat(tabName));
             if (resultTextElement) {
                 resultTextElement.textContent = `Error: ${error.message}`;
             }
@@ -280,10 +280,10 @@
             const response = await fetch("/get_summary/".concat(tabName), {
                 method: "POST",
             });
-            const result = await response.text();
+            let result = await response.text();
 
             if (result != "false"){
-                const animatedText = document.getElementById('result-text');
+                const animatedText = document.getElementById('result-text'.concat(tabName));
 
                 let index = 0;
                 animatedText.textContent = ""; // Clear previous text
@@ -303,7 +303,7 @@
             if(result == "false"){
                 result = "Start recording now..."
                 console.log("no text")
-                const animatedText = document.getElementById('result-text');
+                const animatedText = document.getElementById('result-text'.concat(tabName));
 
                 let index = 0;
                 animatedText.textContent = ""; // Clear previous text
@@ -323,7 +323,7 @@
             
         } catch (error) {
             // Handle errors gracefully
-            const resultTextElement = document.getElementById("result-text");
+            const resultTextElement = document.getElementById("result-text".concat(tabName));
             if (resultTextElement) {
                 resultTextElement.textContent = `Error: ${error.message}`;
             }
