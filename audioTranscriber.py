@@ -40,7 +40,7 @@ class audioTranscriber:
                 text = audioTranscriber.transcribeOneAudio(chunk_filename)
             except sr.UnknownValueError as e:
                 whole_text = ""
-                print("Error:", str(e))
+                print("Error: audio", str(e))
             else:
                 text = f"{text.capitalize()}. "
                 print(chunk_filename, ":", text)
