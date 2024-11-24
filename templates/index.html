@@ -166,7 +166,7 @@
                 tab.classList.add("active")
                 target.classList.add("active")
                 getSummary(target.getAttribute("data-tab-name"))
-                getCards(target.getAttribute("data-tab-name"))
+                getCards(target.getAttribute("data-tab-name"),0)
             })
         })
 
@@ -268,6 +268,9 @@
 
                 // Send the WAV file to the backend or download it
                 await testSendtoBackend(wavBlob, tabName);
+                const questionText = document.getElementById('card-text'.concat(tabName));
+                //const ansText = document.getElementById('flashcard-atext'.concat(tabName));
+                questionText.textContent = "generating...";
                 await generateCards(tabName);
                 /*
                 const url = URL.createObjectURL(blob);
