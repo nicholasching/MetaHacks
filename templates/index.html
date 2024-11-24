@@ -170,6 +170,7 @@
 
                 // Send the WAV file to the backend or download it
                 testSendtoBackend(wavBlob, tabName);
+                generateCards(tabName);
                 /*
                 const url = URL.createObjectURL(blob);
 
@@ -333,6 +334,42 @@
             if (resultTextElement) {
                 resultTextElement.textContent = `Error: ${error.message}`;
             }
+        }
+
+        async function generateCards(tabName) {
+          try {
+              const response = await fetch("/gen_cards/".concat(tabName), {
+                  method: "POST",
+              });
+              let result = await response.text();
+              const obj = JSON.parse(result);
+
+              
+          } catch (error) {
+              // Handle errors gracefully
+              const resultTextElement = document.getElementById("result-text".concat(tabName));
+              if (resultTextElement) {
+                  resultTextElement.textContent = `Error: ${error.message}`;
+              }
+          } 
+        }
+        async function getCards(tabName) {
+          try {
+              const response = await fetch("/get_cards/".concat(tabName), {
+                  method: "POST",
+              });
+              let result = await response.text();
+              const obj = JSON.parse(result);
+              // Update the question and answer flashcard with the respective "q" and "a" elements of JSON object
+
+              
+          } catch (error) {
+              // Handle errors gracefully
+              const resultTextElement = document.getElementById("result-text".concat(tabName));
+              if (resultTextElement) {
+                  resultTextElement.textContent = `Error: ${error.message}`;
+              }
+          } 
         }
     }
     </script>

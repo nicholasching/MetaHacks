@@ -20,7 +20,7 @@ class flashcardGenerator() :
     flashcardString: ChatResponse = chat(model='llama3.2', messages=[
       {
         'role': 'user',
-        'content': self.transcription + 'Generate 3 calculation questions and answers to test someone\'s knowledge of this topic in the form of a JSON object with the keys being \"card1\" which increnents by the number of the question and answer pairs and then the key of the questions and answers are q and a respectively.'
+        'content': self.transcription + 'Generate 1 calculation questions and answers to test someone\'s knowledge of this topic in the form of a JSON object with the keys being \"card1\" which increnents by the number of the question and answer pairs and then the key of the questions and answers are q and a respectively.'
       },
     ])
     print(flashcardString.message.content.split('```')[1])
