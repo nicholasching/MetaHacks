@@ -46,12 +46,14 @@ def gen_cards(path):
     if not os.path.exists(f"uploads/{path}"):
         os.mkdir(f"uploads/{path}")
     with open(f"uploads/{path}/flashcards.JSON", "w") as jsonFile:
-        with open(f"uploads/{path}/transcript.txt", "r") as file:
-            line = file.readline()
-            fg.generateCards(line)
-            json.dump(fg.getCards(), jsonFile)
-            print(type(fg.getCards))
-    return fg.getCards()
+        if os.path.exists(f"uploads/{path}"):
+            with open(f"uploads/{path}/transcript.txt", "r") as file:
+                line = file.readline()
+                fg.generateCards(line)
+                json.dump(fg.getCards(), jsonFile)
+                print(type(fg.getCards))
+                return fg.getCards()
+        else: return False
         
 @app.route('/get_cards/<path>', methods=['POST'])
 def get_cards(path):
