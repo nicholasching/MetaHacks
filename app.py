@@ -25,14 +25,28 @@ def to_back(path):
     file.write(at.transcribeAudio(f"uploads/{path}/recording.wav"))
     file.close()
     
-    return sg.generateSummary(f"uploads/{path}/transcript.txt")
+    file = open(f"uploads/{path}/summary.txt", "w")
+    output = sg.generateSummary(f"uploads/{path}/transcript.txt")
+    file.close()
+
+    return output
+
+@app.route('/get_summary/<path>', methods=['POST'])
+def get_summary(path):
+    if os.path.exists(f"uploads/{path}/summary.txt"):
+        file = open(f"uploads/{path}/summary.txt")
+        returnString = file.readline()
+        file.close()
+        return returnString
+    else: 
+        return False 
 
 @app.route('/gen_cards/<path>', methods=['POST'])
 def gen_cards(path):
     if not os.path.exists(f"uploads/{path}"):
         os.mkdir(f"uploads/{path}")
-    with open("flashcards.JSON", "w") as jsonFile:
-        with open("transcript.txt", "r") as file:
+    with open(f"uploads/{path}/flashcards.JSON", "w") as jsonFile:
+        with open(f"uploads/{path}/transcript.txt", "r") as file:
             line = file.readline()
             fg.generateCards(line)
             json.dump(fg.getCards(), jsonFile)
@@ -43,7 +57,7 @@ def gen_cards(path):
 def get_cards(path):
     jsonString = None
     if os.path.exists(f"uploads/{path}/flashcards.JSON"):
-        with open("flashcards.JSON", "r") as jsonFile:
+        with open(f"uploads/{path}/flashcards.JSON", "r") as jsonFile:
             jsonString = json.load(jsonFile)
         return json.dumps(jsonString)
     else: return False 
