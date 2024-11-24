@@ -40,7 +40,7 @@ def get_summary(path):
         file.close()
         return returnString
     else: 
-        return False 
+        return "false"
 
 @app.route('/gen_cards/<path>', methods=['POST'])
 def gen_cards(path):

@@ -119,6 +119,7 @@
                 })
                 tab.classList.add("active")
                 target.classList.add("active")
+                getSummary(target.getAttribute("data-tab-name"))
             })
         })
 
@@ -237,41 +238,97 @@
     }
 
     async function testSendtoBackend(audioBlob, tabName) {
-    const formData = new FormData();
-    formData.append('audio', audioBlob, 'recording.wav');
+        const formData = new FormData();
+        formData.append('audio', audioBlob, 'recording.wav');
 
-    try {
-        const response = await fetch("/to_back/".concat(tabName), {
-            method: "POST",
-            body: formData
-        });
-        const result = await response.text();
+        try {
+            const response = await fetch("/to_back/".concat(tabName), {
+                method: "POST",
+                body: formData
+            });
+            const result = await response.text();
 
-        const animatedText = document.getElementById('result-text');
+            const animatedText = document.getElementById('result-text');
 
-        let index = 0;
-        animatedText.textContent = ""; // Clear previous text
-        animatedText.style.opacity = 1; // Ensure element is visible
+            let index = 0;
+            animatedText.textContent = ""; // Clear previous text
+            animatedText.style.opacity = 1; // Ensure element is visible
 
-        const intervalId = setInterval(() => {
-            animatedText.textContent += result[index];
-            index++;
+            const intervalId = setInterval(() => {
+                animatedText.textContent += result[index];
+                index++;
 
-            if (index === result.length) {
-                clearInterval(intervalId);
-                // Animation complete - do any post-animation actions here
+                if (index === result.length) {
+                    clearInterval(intervalId);
+                    // Animation complete - do any post-animation actions here
+                }
+
+            }, 10); // Adjust the interval (milliseconds) for typing speed
+            
+        } catch (error) {
+            // Handle errors gracefully
+            const resultTextElement = document.getElementById("result-text");
+            if (resultTextElement) {
+                resultTextElement.textContent = `Error: ${error.message}`;
             }
-
-        }, 10); // Adjust the interval (milliseconds) for typing speed
-        
-    } catch (error) {
-        // Handle errors gracefully
-        const resultTextElement = document.getElementById("result-text");
-        if (resultTextElement) {
-            resultTextElement.textContent = `Error: ${error.message}`;
         }
     }
-}
+
+    async function getSummary(tabName) {
+        result = "";
+        try {
+            const response = await fetch("/get_summary/".concat(tabName), {
+                method: "POST",
+            });
+            const result = await response.text();
+
+            if (result != "false"){
+                const animatedText = document.getElementById('result-text');
+
+                let index = 0;
+                animatedText.textContent = ""; // Clear previous text
+                animatedText.style.opacity = 1; // Ensure element is visible
+
+                const intervalId = setInterval(() => {
+                    animatedText.textContent += result[index];
+                    index++;
+
+                    if (index === result.length) {
+                        clearInterval(intervalId);
+                        // Animation complete - do any post-animation actions here
+                    }
+
+                }, 10); // Adjust the interval (milliseconds) for typing speed
+            }
+            if(result == "false"){
+                result = "Start recording now..."
+                console.log("no text")
+                const animatedText = document.getElementById('result-text');
+
+                let index = 0;
+                animatedText.textContent = ""; // Clear previous text
+                animatedText.style.opacity = 1; // Ensure element is visible
+
+                const intervalId = setInterval(() => {
+                    animatedText.textContent += result[index];
+                    index++;
+
+                    if (index === result.length) {
+                        clearInterval(intervalId);
+                        // Animation complete - do any post-animation actions here
+                    }
+
+                }, 10); // Adjust the interval (milliseconds) for typing speed
+            }
+            
+        } catch (error) {
+            // Handle errors gracefully
+            const resultTextElement = document.getElementById("result-text");
+            if (resultTextElement) {
+                resultTextElement.textContent = `Error: ${error.message}`;
+            }
+        }
+    }
     </script>
     </body>
     </html>
