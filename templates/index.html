@@ -174,7 +174,8 @@
             button.addEventListener("click", async() => {
                 const parentTab = button.closest("[data-tab-content]");
                 const tabName = parentTab ? parentTab.getAttribute("data-tab-name") || "Recording" : "Recording";
-                
+                const questionText = document.getElementById('card-text'.concat(tabName));
+                questionText.textContent = "generating...";
                 generateCards(tabName)
             })
         })
@@ -477,7 +478,7 @@
           if (result != "false") {
               const obj = JSON.parse(result);
               console.log("Flashcards generated for " + tabName);
-              if (side == 1){
+              if (side == 0){
                 const questionText = document.getElementById('card-text'.concat(tabName));
                 questionText.textContent = obj["card1"]["q"];
               }
