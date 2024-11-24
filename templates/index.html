@@ -178,7 +178,7 @@
                 tab.classList.add("active")
                 target.classList.add("active")
                 getSummary(target.getAttribute("data-tab-name"))
-                getCards(target.getAttribute("data-tab-name"))
+                getCards(target.getAttribute("data-tab-name"),0)
             })
         })
 
@@ -186,7 +186,8 @@
             button.addEventListener("click", async() => {
                 const parentTab = button.closest("[data-tab-content]");
                 const tabName = parentTab ? parentTab.getAttribute("data-tab-name") || "Recording" : "Recording";
-                
+                const questionText = document.getElementById('card-text'.concat(tabName));
+                questionText.textContent = "generating...";
                 generateCards(tabName)
             })
         })
@@ -280,6 +281,9 @@
 
                 // Send the WAV file to the backend or download it
                 await testSendtoBackend(wavBlob, tabName);
+                const questionText = document.getElementById('card-text'.concat(tabName));
+                //const ansText = document.getElementById('flashcard-atext'.concat(tabName));
+                questionText.textContent = "generating...";
                 await generateCards(tabName);
                 /*
                 const url = URL.createObjectURL(blob);
@@ -486,7 +490,7 @@
           if (result != "false") {
               const obj = JSON.parse(result);
               console.log("Flashcards generated for " + tabName);
-              if (side == 1){
+              if (side == 0){
                 const questionText = document.getElementById('card-text'.concat(tabName));
                 questionText.textContent = obj["card1"]["q"];
               }
