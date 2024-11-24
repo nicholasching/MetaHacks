@@ -44,26 +44,37 @@ def get_summary(path):
 
 @app.route('/gen_cards/<path>', methods=['POST'])
 def gen_cards(path):
-    if not os.path.exists(f"uploads/{path}"):
-        os.mkdir(f"uploads/{path}")
-    with open(f"uploads/{path}/flashcards.JSON", "w") as jsonFile:
-        if os.path.exists(f"uploads/{path}"):
+    if os.path.exists(f"uploads/{path}/transcript.txt"):
+        with open(f"uploads/{path}/flashcards.JSON", "w") as jsonFile:
+            print("transcript?")
             with open(f"uploads/{path}/transcript.txt", "r") as file:
                 line = file.readline()
-                fg.generateCards(line)
-                json.dump(fg.getCards(), jsonFile)
-                print(type(fg.getCards))
-                return fg.getCards()
-        else: return False
+                if line:
+                    gen = fg(line)
+                    gen.generateCards(line)
+                    json.dump(gen.getCards(), jsonFile)
+                    print(type(gen.getCards))
+                    return gen.getCards()
+                else: 
+                    print("no transcript")
+                    return "false" 
+    else: 
+        print("no transcript")
+        return "false" 
         
 @app.route('/get_cards/<path>', methods=['POST'])
 def get_cards(path):
     jsonString = None
     if os.path.exists(f"uploads/{path}/flashcards.JSON"):
         with open(f"uploads/{path}/flashcards.JSON", "r") as jsonFile:
-            jsonString = json.load(jsonFile)
-        return json.dumps(jsonString)
-    else: return False 
+            if jsonFile.readline() != '':
+                jsonFile.seek(0)
+                print(jsonFile.readline())
+                jsonFile.seek(0)
+                jsonString = json.load(jsonFile)
+                return json.dumps(jsonString)
+
+    return "false" 
 
 if __name__ == '__main__':
     app.run(debug=True)

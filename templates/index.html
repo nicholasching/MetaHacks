@@ -50,19 +50,22 @@
                     <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident sed velit temporibus sint quis, dolorum alias, atque necessitatibus culpa veritatis esse rerum nobis ullam libero recusandae? Ducimus eaque fugiat aliquid. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur beatae dolor doloremque repellendus reprehenderit illo impedit corporis id numquam fugit provident fugiat doloribus tenetur itaque architecto assumenda, possimus placeat consequuntur?</h1>
                 </div>
                 <div id="course1" data-tab-content data-tab-name="math115">
-                <div class="container">
-                    <div class="textcontainer">
-                        <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
-                    </div>
-                    <div class="generatecontainer">
-                        <h1 id="result-textmath115" class="generatetext"></h1>
-                    </div>
-                    <div class="flashcardcontainer">
-                        <div id="course1"class="flashcard">
-                            <h1 id="flashcard-qtextmath115" class="flashcardtext">Flashcard</h1>
+                    <div class="container">
+                        <div class="textcontainer">
+                            <button class="recordButton"><i class="fa-solid fa-microphone"></i></button>
+                        </div>
+                        <div class="generatecontainer">
+                            <h1 id="result-textmath115" class="generatetext"></h1>
                         </div>
                     </div>
-                </div>
+                    <div class="flashcardcontainer">
+                        <div id="course1q"class="flashcard">
+                            <h1 id="flashcard-qtextmath115" class="flashcardtext"></h1>
+                        </div>
+                        <div id="course1a"class="flashcard">
+                            <h1 id="flashcard-atextmath115" class="flashcardtext"></h1>
+                        </div>
+                    </div>
                 </div>
                 <div id="course2" data-tab-content data-tab-name="math117">
                     <div class="container">
@@ -71,6 +74,14 @@
                         </div>
                         <div class="generatecontainer">
                             <h1 id="result-textmath117" class="generatetext"></h1>
+                        </div>
+                    </div>
+                    <div class="flashcardcontainer">
+                        <div id="course2q"class="flashcard">
+                            <h1 id="flashcard-qtextmath117" class="flashcardtext"></h1>
+                        </div>
+                        <div id="course2a"class="flashcard">
+                            <h1 id="flashcard-atextmath117" class="flashcardtext"></h1>
                         </div>
                     </div>
                 </div>
@@ -83,6 +94,14 @@
                             <h1 id="result-textece150" class="generatetext"></h1>
                         </div>
                     </div>
+                    <div class="flashcardcontainer">
+                        <div id="course3q"class="flashcard">
+                            <h1 id="flashcard-qtextece150" class="flashcardtext"></h1>
+                        </div>
+                        <div id="course3a"class="flashcard">
+                            <h1 id="flashcard-atextece150" class="flashcardtext"></h1>
+                        </div>
+                    </div>
                 </div>
                 <div id="course4" data-tab-content data-tab-name="ece105">
                     <div class="container">
@@ -93,6 +112,14 @@
                             <h1 id="result-textece105" class="generatetext"></h1>
                         </div>
                     </div>
+                    <div class="flashcardcontainer">
+                        <div id="course4q"class="flashcard">
+                            <h1 id="flashcard-qtextece105" class="flashcardtext"></h1>
+                        </div>
+                        <div id="course4a"class="flashcard">
+                            <h1 id="flashcard-atextece105" class="flashcardtext"></h1>
+                        </div>
+                    </div>
                 </div>
                 <div id="course5" data-tab-content data-tab-name="eng101">
                     <div class="container">
@@ -101,6 +128,14 @@
                         </div>
                         <div class="generatecontainer">
                             <h1 id="result-texteng101" class="generatetext"></h1>
+                        </div>
+                    </div>
+                    <div class="flashcardcontainer">
+                        <div id="course5q"class="flashcard">
+                            <h1 id="flashcard-qtexteng101" class="flashcardtext"></h1>
+                        </div>
+                        <div id="course5a"class="flashcard">
+                            <h1 id="flashcard-atexteng101" class="flashcardtext"></h1>
                         </div>
                     </div>
                 </div>
@@ -126,10 +161,13 @@
                 tab.classList.add("active")
                 target.classList.add("active")
                 getSummary(target.getAttribute("data-tab-name"))
+                getCards(target.getAttribute("data-tab-name"))
             })
         })
 
         document.querySelectorAll(".recordButton").forEach(button => {
+            let mediaRecorder;
+            let stream;
             button.addEventListener("click", async () => {
                 const parentTab = button.closest("[data-tab-content]");
                 const tabName = parentTab ? parentTab.getAttribute("data-tab-name") || "Recording" : "Recording";
@@ -146,9 +184,9 @@
                 button.classList.add("recording");
 
                 // Request a new audio stream for each recording
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 const audioChunks = [];
-                const mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder = new MediaRecorder(stream);
 
                 // Collect audio data
                 mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
@@ -169,8 +207,8 @@
                 const wavBlob = new Blob([wavData], { type: "audio/wav" });
 
                 // Send the WAV file to the backend or download it
-                testSendtoBackend(wavBlob, tabName);
-                generateCards(tabName);
+                await testSendtoBackend(wavBlob, tabName);
+                await generateCards(tabName);
                 /*
                 const url = URL.createObjectURL(blob);
 
@@ -336,41 +374,65 @@
             }
         }
 
-        async function generateCards(tabName) {
-          try {
-              const response = await fetch("/gen_cards/".concat(tabName), {
-                  method: "POST",
-              });
-              let result = await response.text();
+    }
+    async function generateCards(tabName) {
+      try {
+          const response = await fetch("/gen_cards/".concat(tabName), {
+              method: "POST",
+          });
+          let result = await response.text();
+          if (result != "false") {
               const obj = JSON.parse(result);
-
-              
-          } catch (error) {
-              // Handle errors gracefully
-              const resultTextElement = document.getElementById("result-text".concat(tabName));
-              if (resultTextElement) {
-                  resultTextElement.textContent = `Error: ${error.message}`;
-              }
-          } 
-        }
-        async function getCards(tabName) {
-          try {
-              const response = await fetch("/get_cards/".concat(tabName), {
-                  method: "POST",
-              });
-              let result = await response.text();
+              console.log("Flashcards generated for " + tabName);
+              const questionText = document.getElementById('flashcard-qtext'.concat(tabName));
+              const ansText = document.getElementById('flashcard-atext'.concat(tabName));
+              questionText.textContent = obj["q"];
+              ansText.textContent = obj["a"];
+          } else {
+              const questionText = document.getElementById('flashcard-qtext'.concat(tabName));
+              const ansText = document.getElementById('flashcard-atext'.concat(tabName));
+              questionText.textContent = "No info";
+              ansText.textContent = "No info";
+              console.log("No flashcards found for " + tabName);
+          }
+          
+      } catch (error) {
+          // Handle errors gracefully
+          const resultTextElement = document.getElementById("result-text".concat(tabName));
+          if (resultTextElement) {
+              resultTextElement.textContent = `Error: ${error.message}`;
+          }
+      } 
+    }
+    async function getCards(tabName) {
+      try {
+          const response = await fetch("/get_cards/".concat(tabName), {
+              method: "POST",
+          });
+          let result = await response.text();
+          if (result != "false") {
               const obj = JSON.parse(result);
-              // Update the question and answer flashcard with the respective "q" and "a" elements of JSON object
+              console.log("Flashcards generated for " + tabName);
+              const questionText = document.getElementById('flashcard-qtext'.concat(tabName));
+              const ansText = document.getElementById('flashcard-atext'.concat(tabName));
+              questionText.textContent = obj["q"];
+              ansText.textContent = obj["a"];
+          } else {
+              const questionText = document.getElementById('flashcard-qtext'.concat(tabName));
+              const ansText = document.getElementById('flashcard-atext'.concat(tabName));
+              questionText.textContent = "No info";
+              ansText.textContent = "No info";
+              console.log("No flashcards found for " + tabName);
+          }
 
-              
-          } catch (error) {
-              // Handle errors gracefully
-              const resultTextElement = document.getElementById("result-text".concat(tabName));
-              if (resultTextElement) {
-                  resultTextElement.textContent = `Error: ${error.message}`;
-              }
-          } 
-        }
+          
+      } catch (error) {
+          // Handle errors gracefully
+          const resultTextElement = document.getElementById("result-text".concat(tabName));
+          if (resultTextElement) {
+              resultTextElement.textContent = `Error: ${error.message}`;
+          }
+      } 
     }
     </script>
     </body>
