@@ -387,8 +387,8 @@
               console.log("Flashcards generated for " + tabName);
               const questionText = document.getElementById('flashcard-qtext'.concat(tabName));
               const ansText = document.getElementById('flashcard-atext'.concat(tabName));
-              questionText.textContent = obj["q"];
-              ansText.textContent = obj["a"];
+              questionText.textContent = obj["card1"]["q"];
+              ansText.textContent = obj["card1"]["a"];
           } else {
               const questionText = document.getElementById('flashcard-qtext'.concat(tabName));
               const ansText = document.getElementById('flashcard-atext'.concat(tabName));
@@ -416,8 +416,8 @@
               console.log("Flashcards generated for " + tabName);
               const questionText = document.getElementById('flashcard-qtext'.concat(tabName));
               const ansText = document.getElementById('flashcard-atext'.concat(tabName));
-              questionText.textContent = obj["q"];
-              ansText.textContent = obj["a"];
+              questionText.textContent = obj["card1"]["q"];
+              ansText.textContent = obj["card1"]["a"];
           } else {
               const questionText = document.getElementById('flashcard-qtext'.concat(tabName));
               const ansText = document.getElementById('flashcard-atext'.concat(tabName));

@@ -11,11 +11,18 @@ class flashcardGenerator() :
     flashcardString: ChatResponse = chat(model='llama3.2', messages=[
       {
         'role': 'user',
-        'content': self.transcription + 'Generate 1 calculation questions and answers to test someone\'s knowledge of this topic in the form of a JSON object with the keys being \"card1\" which increnents by the number of the question and answer pairs and then the key of the questions and answers are q and a respectively.'
+        'content': "based on the text: " + self.transcription + ', generate exactly 1 calculation based question and its corresponding answer. Return the result in the form of a JSON object with the following structure and without any extra space or text: \n'
+        + '\{\n'
+        + '\t\"card1\": \{\n'
+        + '\t\t\"q\": \"Question text here\"\,\n'
+        + '\t\t\"a\": \"Answer text here\"\n'
+        + '\t\}\n'
+        + '\}'
       },
     ])
-    print(flashcardString.message.content.split('```')[1])
-    self.cards = json.loads(flashcardString.message.content.split('```')[1])
+    print(flashcardString.message.content)
+    self.cards = json.loads(flashcardString.message.content)
+    print(self.cards)
     
   def getCards(self): 
     if self.cards == None: raise Exception ("No cards were generated")

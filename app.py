@@ -51,9 +51,8 @@ def gen_cards(path):
                 line = file.readline()
                 if line:
                     gen = fg(line)
-                    gen.generateCards(line)
+                    gen.generateCards()
                     json.dump(gen.getCards(), jsonFile)
-                    print(type(gen.getCards))
                     return gen.getCards()
                 else: 
                     print("no transcript")
@@ -68,8 +67,6 @@ def get_cards(path):
     if os.path.exists(f"uploads/{path}/flashcards.JSON"):
         with open(f"uploads/{path}/flashcards.JSON", "r") as jsonFile:
             if jsonFile.readline() != '':
-                jsonFile.seek(0)
-                print(jsonFile.readline())
                 jsonFile.seek(0)
                 jsonString = json.load(jsonFile)
                 return json.dumps(jsonString)
