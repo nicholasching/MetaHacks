@@ -163,3 +163,4 @@ cython_debug/
 
 # Audio
 *.wav
+*.txt
