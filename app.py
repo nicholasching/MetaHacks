@@ -27,6 +27,7 @@ def to_back(path):
     
     file = open(f"uploads/{path}/summary.txt", "w")
     output = sg.generateSummary(f"uploads/{path}/transcript.txt")
+    file.write(output)
     file.close()
 
     return output

@@ -243,30 +243,23 @@
         });
         const result = await response.text();
 
-        const resultTextElement = document.getElementById("result-text");
+        const animatedText = document.getElementById('result-text');
 
-        if (resultTextElement) {
-            // Split the text into lines based on newlines
-            const lines = result.split('\n');
-            resultTextElement.innerHTML = ''; // Clear any existing content
+        let index = 0;
+        animatedText.textContent = ""; // Clear previous text
+        animatedText.style.opacity = 1; // Ensure element is visible
 
-            // Create a container for the lines
-            const container = document.createElement('div');
-            resultTextElement.appendChild(container);
+        const intervalId = setInterval(() => {
+            animatedText.textContent += result[index];
+            index++;
 
-            lines.forEach((line, index) => {
-                // Create a span for each line
-                const lineSpan = document.createElement('span');
-                lineSpan.classList.add('line');
-                lineSpan.textContent = line;
+            if (index === result.length) {
+                clearInterval(intervalId);
+                // Animation complete - do any post-animation actions here
+            }
 
-                // Apply the typing animation to each line with delay
-                lineSpan.style.animationDelay = `${index * 2}s`; // Adjust the delay as needed
-
-                // Append the line span to the container
-                container.appendChild(lineSpan);
-            });
-        }
+        }, 10); // Adjust the interval (milliseconds) for typing speed
+        
     } catch (error) {
         // Handle errors gracefully
         const resultTextElement = document.getElementById("result-text");
